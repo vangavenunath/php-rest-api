@@ -82,6 +82,25 @@ class User{
     $this->password = $row['password'];
     $this->last_updated = $row['last_updated'];
     }
+	
+	function check_user(){
+  
+    // update query
+        $query = "SELECT id FROM " . $this->table_name . "
+            WHERE username = :username and password = :password ";
+      
+        // prepare query statement
+        $stmt = $this->conn->prepare($query);
+		
+        // bind new values
+        $stmt->bindParam(':username', $this->username);
+        $stmt->bindParam(':password', $this->password);
+      
+        // execute query
+        $stmt->execute();
+    
+        return $stmt;
+    }
 
     function update(){
   
